@@ -1,5 +1,12 @@
-import { SimulationParams, VisionMatrices, WaterProperties } from '@/types';
-import { BASS_VISION_MATRICES, calculateSalinityAdjustedK } from './constants';
+import { SimulationParams, VisionMatrices, WaterProperties, VisionType } from '@/types';
+import { 
+  BASS_VISION_MATRICES, 
+  MONOCHROMATIC_VISION_MATRICES,
+  TRICHROMATIC_VISION_MATRICES,
+  TETRACHROMATIC_VISION_MATRICES,
+  PENTACHROMATIC_VISION_MATRICES,
+  calculateSalinityAdjustedK 
+} from './constants';
 import { getSpeciesById } from './fishSpecies';
 
 /**
@@ -22,7 +29,7 @@ export class AquaticVisionProcessor {
   }
 
   /**
-   * Get species-specific vision matrices
+   * Get species-specific vision matrices based on vision type
    */
   private getSpeciesVisionMatrices(speciesId: string): VisionMatrices {
     const species = getSpeciesById(speciesId);
@@ -30,9 +37,31 @@ export class AquaticVisionProcessor {
       return BASS_VISION_MATRICES; // Fallback to bass
     }
 
-    // For now, use bass matrices for all species
-    // In Phase 4, we'll implement species-specific matrices based on cone sensitivities
-    return BASS_VISION_MATRICES;
+    // Dynamic matrix selection based on species vision type
+    switch (species.visionType) {
+      case 'monochromatic':
+        return MONOCHROMATIC_VISION_MATRICES;
+      case 'dichromatic':
+        return BASS_VISION_MATRICES; // Bass is our dichromatic baseline
+      case 'trichromatic':
+        return TRICHROMATIC_VISION_MATRICES;
+      case 'tetrachromatic':
+        return TETRACHROMATIC_VISION_MATRICES;
+      case 'pentachromatic':
+        return PENTACHROMATIC_VISION_MATRICES;
+      default:
+        return BASS_VISION_MATRICES; // Fallback
+    }
+  }
+
+  /**
+   * Get matrix dimensions for current vision type
+   */
+  private getMatrixDimensions(): { coneCount: number; visionType: VisionType } {
+    return {
+      coneCount: this.matrices.coneCount,
+      visionType: this.matrices.visionType
+    };
   }
 
   /**
@@ -76,21 +105,21 @@ export class AquaticVisionProcessor {
         params.waterProperties
       );
       
-      // Convert to fish cone responses (step 2)
-      const fishCones = this.rgbToFishResponse(attenuatedRgb);
+      // Convert to species cone responses (step 2)
+      const speciesCones = this.rgbToSpeciesResponse(attenuatedRgb);
       const rodResponse = this.calculateRodResponse(attenuatedRgb);
       
-      // Reconstruct fish-perceived image (step 3)
-      const fishRgb = this.reconstructFishVision(
-        fishCones,
+      // Reconstruct species-perceived image (step 3)
+      const speciesRgb = this.reconstructSpeciesVision(
+        speciesCones,
         rodResponse,
         params.lightCondition
       );
       
       // Apply backscatter if enabled
       const finalRgb = params.backscatter
-        ? this.addBackscatter(fishRgb, params.depth)
-        : fishRgb;
+        ? this.addBackscatter(speciesRgb, params.depth)
+        : speciesRgb;
       
       // Convert back to sRGB and store
       const srgb = this.linearToSrgb(finalRgb);
@@ -134,17 +163,28 @@ export class AquaticVisionProcessor {
   }
 
   /**
-   * Step 2a: Convert RGB to fish cone responses
-   * Uses the 3x2 matrix to map RGB to species-specific cone catches
+   * Step 2a: Convert RGB to species cone responses
+   * Uses the 3x{coneCount} matrix to map RGB to species-specific cone catches
+   * Supports 1-5 cone types dynamically
    */
-  private rgbToFishResponse(rgb: number[]): number[] {
+  private rgbToSpeciesResponse(rgb: number[]): number[] {
     const [r, g, b] = rgb;
-    const matrix = this.matrices.rgbToFish;
+    const matrix = this.matrices.rgbToSpecies;
+    const coneCount = this.matrices.coneCount;
     
-    return [
-      matrix[0][0] * r + matrix[1][0] * g + matrix[2][0] * b, // First cone type
-      matrix[0][1] * r + matrix[1][1] * g + matrix[2][1] * b, // Second cone type
-    ];
+    const coneResponses: number[] = [];
+    
+    // Calculate response for each cone type
+    for (let coneIndex = 0; coneIndex < coneCount; coneIndex++) {
+      const coneResponse = 
+        matrix[0][coneIndex] * r + // Red contribution
+        matrix[1][coneIndex] * g + // Green contribution  
+        matrix[2][coneIndex] * b;  // Blue contribution
+      
+      coneResponses.push(coneResponse);
+    }
+    
+    return coneResponses;
   }
 
   /**
@@ -157,23 +197,29 @@ export class AquaticVisionProcessor {
   }
 
   /**
-   * Step 3: Reconstruct fish-perceived image
+   * Step 3: Reconstruct species-perceived image
    * Blends cone and rod responses based on lighting conditions
+   * Supports 1-5 cone types dynamically
    */
-  private reconstructFishVision(
-    fishCones: number[],
+  private reconstructSpeciesVision(
+    speciesCones: number[],
     rodResponse: number,
     lightCondition: { rodBlend: number; saturation: number }
   ): number[] {
-    // Convert fish cones back to RGB space
-    const matrix = this.matrices.fishToRgb;
-    const [cone1, cone2] = fishCones;
+    // Convert species cones back to RGB space
+    const matrix = this.matrices.speciesToRgb;
+    const coneCount = this.matrices.coneCount;
     
-    const coneRgb = [
-      matrix[0][0] * cone1 + matrix[1][0] * cone2,
-      matrix[0][1] * cone1 + matrix[1][1] * cone2,
-      matrix[0][2] * cone1 + matrix[1][2] * cone2,
-    ];
+    // Initialize RGB output
+    const coneRgb = [0, 0, 0];
+    
+    // Sum contributions from all cone types
+    for (let coneIndex = 0; coneIndex < coneCount; coneIndex++) {
+      const coneResponse = speciesCones[coneIndex];
+      coneRgb[0] += matrix[coneIndex][0] * coneResponse; // Red
+      coneRgb[1] += matrix[coneIndex][1] * coneResponse; // Green
+      coneRgb[2] += matrix[coneIndex][2] * coneResponse; // Blue
+    }
     
     // Rod response as achromatic signal
     const rodRgb = [rodResponse, rodResponse, rodResponse];

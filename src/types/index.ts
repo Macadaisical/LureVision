@@ -56,9 +56,15 @@ export interface ShaderUniforms {
   u_backscatter: number;
 }
 
-// Fish cone sensitivity matrices (configurable per species)
+// Aquatic species vision types
+export type VisionType = 'monochromatic' | 'dichromatic' | 'trichromatic' | 'tetrachromatic' | 'pentachromatic';
+
+// Aquatic species cone sensitivity matrices (configurable per species)
 export interface VisionMatrices {
-  rgbToFish: number[][]; // 3x2 matrix for species cone responses
-  fishToRgb: number[][]; // 2x3 matrix for reconstruction
+  visionType: VisionType;
+  coneCount: number; // 1-5 cones
+  rgbToSpecies: number[][]; // 3x{coneCount} matrix for species cone responses
+  speciesToRgb: number[][]; // {coneCount}x3 matrix for reconstruction
   rodWeights: number[]; // [r, g, b] weights for rod response
+  coneLabels?: string[]; // Optional labels for cone types (e.g., ['LWS', 'RH2'] for bass)
 }

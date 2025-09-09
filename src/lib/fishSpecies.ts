@@ -1,13 +1,16 @@
 /**
- * Fish species database with vision characteristics for GameFishVision
+ * Aquatic species database with vision characteristics for AquaticVision
+ * Supports monochromatic through pentachromatic vision systems
  */
+
+import { VisionType } from '@/types';
 
 export interface FishSpecies {
   id: string;
   name: string;
   scientificName: string;
-  environment: 'freshwater' | 'saltwater' | 'anadromous';
-  visionType: 'dichromatic' | 'trichromatic' | 'tetrachromatic';
+  environment: 'freshwater' | 'saltwater' | 'anadromous' | 'deep-sea';
+  visionType: VisionType;
   coneTypes: {
     shortWave?: number; // UV/violet cone peak (nm)
     mediumWave?: number; // Blue/green cone peak (nm) 
@@ -24,7 +27,57 @@ export interface FishSpecies {
 }
 
 export const FISH_SPECIES: FishSpecies[] = [
-  // Freshwater Species
+  // =======================
+  // MONOCHROMATIC SPECIES (1 cone)
+  // =======================
+  {
+    id: 'deep-sea-lanternfish',
+    name: 'Deep-sea Lanternfish',
+    scientificName: 'Myctophidae family',
+    environment: 'deep-sea',
+    visionType: 'monochromatic',
+    coneTypes: {
+      mediumWave: 485, // Single cone optimized for deep-water blue light
+    },
+    specialFeatures: [
+      'Optimized for low-light detection',
+      'Bioluminescence communication',
+      'Enhanced light sensitivity',
+      'Minimal color discrimination'
+    ],
+    description: 'Deep-sea specialists with single-cone vision optimized for detecting available light in the deep ocean. Vision focused on brightness and contrast rather than color.',
+    salinity: {
+      min: 35,
+      max: 35,
+      typical: 35
+    }
+  },
+  {
+    id: 'pacific-hagfish',
+    name: 'Pacific Hagfish',
+    scientificName: 'Eptatretus stoutii',
+    environment: 'deep-sea',
+    visionType: 'monochromatic',
+    coneTypes: {
+      mediumWave: 500, // Single cone for basic light detection
+    },
+    specialFeatures: [
+      'Primitive visual system',
+      'Relies heavily on touch and smell',
+      'Basic light detection only',
+      'Evolutionary ancient vision'
+    ],
+    description: 'Ancient marine species with the most primitive vision system, using single-cone light detection primarily for day/night cycles.',
+    salinity: {
+      min: 35,
+      max: 35,
+      typical: 35
+    }
+  },
+
+  // =======================
+  // DICHROMATIC SPECIES (2 cones) - Existing species
+  // =======================
   {
     id: 'largemouth-bass',
     name: 'Largemouth Bass',
@@ -141,6 +194,114 @@ export const FISH_SPECIES: FishSpecies[] = [
       max: 35,
       typical: 35
     }
+  },
+
+  // =======================
+  // TRICHROMATIC SPECIES (3 cones)
+  // =======================
+  {
+    id: 'goldfish',
+    name: 'Goldfish',
+    scientificName: 'Carassius auratus',
+    environment: 'freshwater',
+    visionType: 'trichromatic',
+    coneTypes: {
+      shortWave: 450,    // Blue cone
+      mediumWave: 540,   // Green cone
+      longWave: 625,     // Red cone
+    },
+    specialFeatures: [
+      'Human-like color vision',
+      'Excellent color discrimination',
+      'Can distinguish fine color differences',
+      'Visual learning capabilities'
+    ],
+    description: 'Popular aquarium species with human-like trichromatic vision. Excellent color discrimination makes them ideal subjects for color vision research.',
+    salinity: {
+      min: 0,
+      max: 0,
+      typical: 0
+    }
+  },
+  {
+    id: 'cichlid-haplochromis',
+    name: 'Burton\'s Mouthbrooder',
+    scientificName: 'Haplochromis burtoni',
+    environment: 'freshwater',
+    visionType: 'trichromatic',
+    coneTypes: {
+      shortWave: 455,
+      mediumWave: 535,
+      longWave: 620,
+    },
+    specialFeatures: [
+      'Advanced behavioral vision',
+      'Social color recognition',
+      'Territorial color displays',
+      'Male-female color differentiation'
+    ],
+    description: 'African cichlid with sophisticated trichromatic vision used for social interactions, territory recognition, and mate selection.',
+    salinity: {
+      min: 0,
+      max: 0,
+      typical: 0
+    }
+  },
+
+  // =======================
+  // PENTACHROMATIC SPECIES (5 cones)
+  // =======================
+  {
+    id: 'reef-damselfish',
+    name: 'Reef Damselfish',
+    scientificName: 'Pomacentridae family',
+    environment: 'saltwater',
+    visionType: 'pentachromatic',
+    coneTypes: {
+      shortWave: 350,      // UV cone
+      mediumWave: 400,     // Violet cone
+      longWave: 470,       // Blue cone
+      ultraLongWave: 540,  // Green cone
+    },
+    specialFeatures: [
+      'Most complex aquatic color vision',
+      'UV pattern recognition',
+      'Reef navigation expertise',
+      'Advanced predator detection',
+      'Species recognition via UV patterns'
+    ],
+    description: 'Reef specialists with the most complex color vision in aquatic environments. Can see UV patterns invisible to most predators and prey.',
+    salinity: {
+      min: 35,
+      max: 35,
+      typical: 35
+    }
+  },
+  {
+    id: 'mantis-shrimp-family',
+    name: 'Mantis Shrimp (simplified)',
+    scientificName: 'Stomatopoda order',
+    environment: 'saltwater',
+    visionType: 'pentachromatic',
+    coneTypes: {
+      shortWave: 335,      // Deep UV
+      mediumWave: 380,     // UV-violet
+      longWave: 450,       // Blue
+      ultraLongWave: 520,  // Green
+    },
+    specialFeatures: [
+      'Most complex known color vision',
+      'Polarized light detection',
+      'Circular polarization vision',
+      'UV communication patterns',
+      'Advanced motion detection'
+    ],
+    description: 'Legendary for having the most complex color vision system known. This simplified 5-cone model represents their basic color detection (actual mantis shrimp have 12-16 different photoreceptor types).',
+    salinity: {
+      min: 35,
+      max: 35,
+      typical: 35
+    }
   }
 ];
 
@@ -155,6 +316,14 @@ export function getSaltwaterSpecies() {
 
 export function getAnadromousSpecies() {
   return FISH_SPECIES.filter(species => species.environment === 'anadromous');
+}
+
+export function getDeepSeaSpecies() {
+  return FISH_SPECIES.filter(species => species.environment === 'deep-sea');
+}
+
+export function getSpeciesByVisionType(visionType: VisionType) {
+  return FISH_SPECIES.filter(species => species.visionType === visionType);
 }
 
 export function getSpeciesById(id: string): FishSpecies | undefined {
