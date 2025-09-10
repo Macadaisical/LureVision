@@ -1,5 +1,5 @@
 /**
- * Aquatic species database with vision characteristics for AquaticVision
+ * Aquatic species database with vision characteristics for LureVision
  * Supports monochromatic through pentachromatic vision systems
  */
 

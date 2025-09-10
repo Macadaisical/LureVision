@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
-import { SimulationParams, AquaticVisionResult } from '@/types';
+import { SimulationParams, LureVisionResult } from '@/types';
 import { DEFAULT_PARAMS } from '@/lib/constants';
-import { AquaticVisionProcessor } from '@/lib/aquaticVision';
+import { LureVisionProcessor } from '@/lib/aquaticVision';
 import { ImageExporter } from '@/lib/export';
 // import { JIG_PRESETS } from '@/lib/jigPresets'; // Removed presets for streamlined interface
 import { ControlPanel } from '@/components/ControlPanel';
@@ -12,14 +12,14 @@ import { ImageViewer } from '@/components/ImageViewer';
 export default function Home() {
   const [params, setParams] = useState<SimulationParams>(DEFAULT_PARAMS);
   const [currentImage, setCurrentImage] = useState<ImageData | null>(null);
-  const [result, setResult] = useState<AquaticVisionResult | null>(null);
+  const [result, setResult] = useState<LureVisionResult | null>(null);
   // const [selectedPreset, setSelectedPreset] = useState<string | null>(null); // Removed for streamlined interface
   const [isProcessing, setIsProcessing] = useState(false);
-  const [processor, setProcessor] = useState<AquaticVisionProcessor | null>(null);
+  const [processor, setProcessor] = useState<LureVisionProcessor | null>(null);
   
   // Initialize processor only on client side
   useEffect(() => {
-    setProcessor(new AquaticVisionProcessor());
+    setProcessor(new LureVisionProcessor());
   }, []);
 
   // Auto-trigger simulation when parameters change (with debouncing)
@@ -30,12 +30,12 @@ export default function Home() {
       setIsProcessing(true);
       try {
         const startTime = performance.now();
-        const aquaticVisionImage = await processor.processImage(currentImage, params);
+        const lureVisionImage = await processor.processImage(currentImage, params);
         const processingTime = performance.now() - startTime;
 
         setResult({
           originalImage: currentImage,
-          aquaticVisionImage,
+          lureVisionImage,
           processingTime
         });
       } catch (error) {
@@ -62,7 +62,7 @@ export default function Home() {
         
         setResult({
           originalImage: imageData,
-          aquaticVisionImage: gameFishVisionResult,
+          lureVisionImage: gameFishVisionResult,
           processingTime
         });
       } catch (error) {
@@ -83,12 +83,12 @@ export default function Home() {
     setIsProcessing(true);
     try {
       const startTime = performance.now();
-      const aquaticVisionImage = await processor.processImage(currentImage, params);
+      const lureVisionImage = await processor.processImage(currentImage, params);
       const processingTime = performance.now() - startTime;
 
       setResult({
         originalImage: currentImage,
-        aquaticVisionImage,
+        lureVisionImage,
         processingTime
       });
     } catch (error) {
@@ -105,13 +105,13 @@ export default function Home() {
     const timestamp = new Date().toISOString().slice(0, 16).replace('T', '_').replace(':', '-');
 
     if (format === 'png') {
-      ImageExporter.exportPNG(result.aquaticVisionImage, `aquatic-vision_${timestamp}.png`);
+      ImageExporter.exportPNG(result.lureVisionImage, `lure-vision_${timestamp}.png`);
     } else {
       ImageExporter.exportCollage(
         result.originalImage,
-        result.aquaticVisionImage,
+        result.lureVisionImage,
         params,
-        `aquatic-vision-comparison_${timestamp}.png`
+        `lure-vision-comparison_${timestamp}.png`
       );
     }
   }, [result, params]);
@@ -204,7 +204,7 @@ export default function Home() {
             <div className="mb-4">
               <ImageViewer
                 originalImage={result?.originalImage || null}
-                aquaticVisionImage={result?.aquaticVisionImage || null}
+                lureVisionImage={result?.lureVisionImage || null}
                 onExport={handleExport}
                 onImageUpload={handleImageSelect}
               />

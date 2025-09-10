@@ -1,4 +1,4 @@
-// Types for aquatic life vision simulation
+// Types for lure vision simulation
 
 export interface WaterClarity {
   name: 'clear' | 'murky' | 'muddy';
@@ -37,9 +37,9 @@ export interface JigPreset {
   description?: string;
 }
 
-export interface AquaticVisionResult {
+export interface LureVisionResult {
   originalImage: ImageData;
-  aquaticVisionImage: ImageData;
+  lureVisionImage: ImageData;
   processingTime: number;
 }
 

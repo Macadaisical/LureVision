@@ -1,9 +1,9 @@
 import { SimulationParams } from '@/types';
 
 /**
- * WebGL-based aquatic vision processor for high-performance real-time rendering
+ * WebGL-based lure vision processor for high-performance real-time rendering
  */
-export class WebGLAquaticVisionProcessor {
+export class WebGLLureVisionProcessor {
   private canvas: HTMLCanvasElement;
   private gl: WebGLRenderingContext;
   private program: WebGLProgram | null = null;

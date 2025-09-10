@@ -10,12 +10,12 @@ import {
 import { getSpeciesById } from './fishSpecies';
 
 /**
- * Core aquatic life vision simulation algorithms
+ * Core lure vision simulation algorithms
  * Implements the 3-step pipeline for multiple vision types
  * Supports mono-, di-, tri-, tetra-, and pentachromatic vision systems
  */
 
-export class AquaticVisionProcessor {
+export class LureVisionProcessor {
   private canvas: HTMLCanvasElement | null = null;
   private ctx: CanvasRenderingContext2D | null = null;
   private matrices: VisionMatrices;

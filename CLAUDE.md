@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-AquaticVision is a Next.js application that simulates how various aquatic life perceive colors underwater. It uses WebGL shaders to apply scientifically-based vision models that support:
+LureVision is a Next.js application that simulates how various aquatic life perceive colors underwater. It uses WebGL shaders to apply scientifically-based vision models that support:
 
 - Multiple vision types: monochromatic, dichromatic, trichromatic, tetrachromatic, and pentachromatic
 - Species-specific cone sensitivities based on published research

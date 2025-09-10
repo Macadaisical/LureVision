@@ -1,10 +1,10 @@
-# AquaticVision
+# LureVision
 
 Advanced aquatic life vision simulation - from monochromatic to pentachromatic vision systems across marine and freshwater species.
 
 ## 🌊 Overview
 
-AquaticVision is a Next.js application that simulates how various aquatic life perceive colors underwater using scientifically-based vision models. Unlike traditional color vision simulators, AquaticVision supports the full spectrum of aquatic vision types found in nature.
+LureVision is a Next.js application that simulates how various aquatic life perceive colors underwater using scientifically-based vision models. Unlike traditional color vision simulators, LureVision supports the full spectrum of aquatic vision types found in nature.
 
 ## 🐟 Supported Vision Types
 
@@ -46,7 +46,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Key Components
 
-- **AquaticVisionProcessor**: Core vision simulation engine
+- **LureVisionProcessor**: Core vision simulation engine
 - **Species Database**: Configurable vision matrices for different species
 - **WebGL Pipeline**: High-performance GPU processing
 - **Export System**: PNG and comparison collage generation
@@ -68,7 +68,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 🧬 Based on BassVision
 
-AquaticVision is built on the proven architecture of BassVision, extending from single-species bass vision to comprehensive aquatic life simulation.
+LureVision is built on the proven architecture of BassVision, extending from single-species bass vision to comprehensive aquatic life simulation.
 
 ---
 

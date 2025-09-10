@@ -4,20 +4,20 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 
 interface ImageViewerProps {
   originalImage: ImageData | null;
-  aquaticVisionImage: ImageData | null;
+  lureVisionImage: ImageData | null;
   onExport: (format: 'png' | 'collage') => void;
   onImageUpload: (imageData: ImageData) => void;
 }
 
-export function ImageViewer({ originalImage, aquaticVisionImage, onExport, onImageUpload }: ImageViewerProps) {
+export function ImageViewer({ originalImage, lureVisionImage, onExport, onImageUpload }: ImageViewerProps) {
   const [splitPosition, setSplitPosition] = useState(50); // Percentage
-  const [viewMode, setViewMode] = useState<'split' | 'original' | 'aquatic'>('split');
+  const [viewMode, setViewMode] = useState<'split' | 'original' | 'lure'>('split');
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const drawComparison = useCallback(() => {
     const canvas = canvasRef.current;
-    if (!canvas || !originalImage || !aquaticVisionImage) return;
+    if (!canvas || !originalImage || !lureVisionImage) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -28,8 +28,8 @@ export function ImageViewer({ originalImage, aquaticVisionImage, onExport, onIma
 
     if (viewMode === 'original') {
       ctx.putImageData(originalImage, 0, 0);
-    } else if (viewMode === 'aquatic') {
-      ctx.putImageData(aquaticVisionImage, 0, 0);
+    } else if (viewMode === 'lure') {
+      ctx.putImageData(lureVisionImage, 0, 0);
     } else {
       // Split view
       const splitX = Math.floor((originalImage.width * splitPosition) / 100);
@@ -54,10 +54,10 @@ export function ImageViewer({ originalImage, aquaticVisionImage, onExport, onIma
         for (let x = splitX; x < originalImage.width; x++) {
           const srcIndex = (y * originalImage.width + x) * 4;
           const dstIndex = (y * (originalImage.width - splitX) + (x - splitX)) * 4;
-          gameFishRight.data[dstIndex] = aquaticVisionImage.data[srcIndex];
-          gameFishRight.data[dstIndex + 1] = aquaticVisionImage.data[srcIndex + 1];
-          gameFishRight.data[dstIndex + 2] = aquaticVisionImage.data[srcIndex + 2];
-          gameFishRight.data[dstIndex + 3] = aquaticVisionImage.data[srcIndex + 3];
+          gameFishRight.data[dstIndex] = lureVisionImage.data[srcIndex];
+          gameFishRight.data[dstIndex + 1] = lureVisionImage.data[srcIndex + 1];
+          gameFishRight.data[dstIndex + 2] = lureVisionImage.data[srcIndex + 2];
+          gameFishRight.data[dstIndex + 3] = lureVisionImage.data[srcIndex + 3];
         }
       }
       ctx.putImageData(gameFishRight, splitX, 0);
@@ -71,7 +71,7 @@ export function ImageViewer({ originalImage, aquaticVisionImage, onExport, onIma
       ctx.lineTo(splitX, originalImage.height);
       ctx.stroke();
     }
-  }, [originalImage, aquaticVisionImage, splitPosition, viewMode]);
+  }, [originalImage, lureVisionImage, splitPosition, viewMode]);
 
   useEffect(() => {
     drawComparison();
@@ -139,7 +139,7 @@ export function ImageViewer({ originalImage, aquaticVisionImage, onExport, onIma
     event.target.value = '';
   };
 
-  const hasImages = originalImage && aquaticVisionImage;
+  const hasImages = originalImage && lureVisionImage;
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -191,9 +191,9 @@ export function ImageViewer({ originalImage, aquaticVisionImage, onExport, onIma
               Original
             </button>
             <button
-              onClick={() => setViewMode('aquatic')}
+              onClick={() => setViewMode('lure')}
               className={`px-3 py-1 text-sm rounded ${
-                viewMode === 'aquatic'
+                viewMode === 'lure'
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
