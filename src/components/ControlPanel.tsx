@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { SimulationParams } from '@/types';
 import { WATER_CLARITY_PRESETS, LIGHT_CONDITIONS, DEFAULT_PARAMS } from '@/lib/constants';
-import { FISH_SPECIES, getFreshwaterSpecies, getSaltwaterSpecies, getAnadromousSpecies, shouldShowSalinitySlider, getDefaultSalinityForSpecies, getSpeciesById } from '@/lib/fishSpecies';
+import { getFreshwaterSpecies, getSaltwaterSpecies, getAnadromousSpecies, getDeepSeaSpecies, shouldShowSalinitySlider, getDefaultSalinityForSpecies, getSpeciesById } from '@/lib/fishSpecies';
 
 interface ControlPanelProps {
   params: SimulationParams;
@@ -16,6 +16,8 @@ interface ControlPanelProps {
 
 export function ControlPanel({ params, onParamsChange, onSimulate, isProcessing, onImageUpload, hasImage }: ControlPanelProps) {
   const [showAdvanced, setShowAdvanced] = useState(false);
+  
+  const currentSpecies = getSpeciesById(params.speciesId);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -183,8 +185,39 @@ export function ControlPanel({ params, onParamsChange, onSimulate, isProcessing,
               </option>
             ))}
           </optgroup>
+          <optgroup label="Deep-Sea">
+            {getDeepSeaSpecies().map(species => (
+              <option key={species.id} value={species.id}>
+                {species.name} ({species.scientificName})
+              </option>
+            ))}
+          </optgroup>
         </select>
       </div>
+
+      {/* Species Information Panel */}
+      {currentSpecies && (
+        <div className="space-y-2 p-3 bg-blue-50 rounded-lg border border-blue-200">
+          <div className="flex items-center justify-between">
+            <h4 className="text-xs font-semibold text-blue-800">
+              {currentSpecies.name}
+            </h4>
+            <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-full">
+              {currentSpecies.visionType}
+            </span>
+          </div>
+          <p className="text-xs text-blue-700 italic">
+            {currentSpecies.scientificName}
+          </p>
+          <div className="text-xs text-blue-600">
+            <p><strong>Environment:</strong> {currentSpecies.environment}</p>
+            <p><strong>Vision Type:</strong> {currentSpecies.visionType} ({Object.keys(currentSpecies.coneTypes).length} cone{Object.keys(currentSpecies.coneTypes).length !== 1 ? 's' : ''})</p>
+            {currentSpecies.specialFeatures.length > 0 && (
+              <p><strong>Special Features:</strong> {currentSpecies.specialFeatures.slice(0, 2).join(', ')}{currentSpecies.specialFeatures.length > 2 ? '...' : ''}</p>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Water Clarity Slider */}
       <div className="space-y-2">

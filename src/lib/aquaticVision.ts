@@ -251,15 +251,43 @@ export class LureVisionProcessor {
 
   /**
    * Add backscatter/haze effect for murky water
+   * Enhanced for deep-sea environments with bioluminescence
    */
   private addBackscatter(rgb: number[], depthFeet: number): number[] {
-    const hazeFactor = Math.min(depthFeet / 30, 1) * 0.15; // Max 15% haze at 30ft
-    const hazeColor = [0.4, 0.5, 0.6]; // Bluish-gray haze
+    const isDeepSea = depthFeet > 100; // Deep-sea threshold
+    
+    if (isDeepSea) {
+      // Deep-sea environment: very dark with occasional bioluminescent spots
+      return this.addBioluminescentEffects(rgb, depthFeet);
+    } else {
+      // Shallow water backscatter
+      const hazeFactor = Math.min(depthFeet / 30, 1) * 0.15; // Max 15% haze at 30ft
+      const hazeColor = [0.4, 0.5, 0.6]; // Bluish-gray haze
+      
+      return [
+        rgb[0] * (1 - hazeFactor) + hazeColor[0] * hazeFactor,
+        rgb[1] * (1 - hazeFactor) + hazeColor[1] * hazeFactor,
+        rgb[2] * (1 - hazeFactor) + hazeColor[2] * hazeFactor,
+      ];
+    }
+  }
+
+  /**
+   * Add bioluminescent effects for deep-sea species
+   * Simulates the sparse, blue-green bioluminescent signals in deep ocean
+   */
+  private addBioluminescentEffects(rgb: number[], depthFeet: number): number[] {
+    // Deep-sea is essentially black except for bioluminescence
+    const ambientFactor = Math.max(0.01, Math.exp(-(depthFeet - 100) / 200)); // Exponential decay
+    
+    // Bioluminescent organisms emit primarily blue-green light (480-490nm)
+    const bioLumBlue = 0.02 * Math.random(); // Sparse, random bioluminescent spots
+    const bioLumGreen = 0.015 * Math.random();
     
     return [
-      rgb[0] * (1 - hazeFactor) + hazeColor[0] * hazeFactor,
-      rgb[1] * (1 - hazeFactor) + hazeColor[1] * hazeFactor,
-      rgb[2] * (1 - hazeFactor) + hazeColor[2] * hazeFactor,
+      rgb[0] * ambientFactor, // Red is completely absorbed at depth
+      rgb[1] * ambientFactor + bioLumGreen, // Green with bioluminescence
+      rgb[2] * ambientFactor + bioLumBlue,  // Blue with bioluminescence
     ];
   }
 
