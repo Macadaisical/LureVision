@@ -523,6 +523,499 @@ export const FISH_SPECIES: FishSpecies[] = [
       max: 35,
       typical: 35
     }
+  },
+
+  // =======================
+  // PHASE 3 EXPANSION: DEEP-SEA SPECIALISTS (5 species)
+  // =======================
+  {
+    id: 'vampire-squid',
+    name: 'Vampire Squid',
+    scientificName: 'Vampyroteutbis infernalis',
+    environment: 'deep-sea',
+    visionType: 'monochromatic',
+    coneTypes: {
+      mediumWave: 480, // Rod-dominated system
+    },
+    specialFeatures: [
+      'Largest eyes relative to body size',
+      'Bioluminescence detection specialist',
+      'Oxygen minimum zone adaptation',
+      'Photophore coordination'
+    ],
+    description: 'Lives in oceanic oxygen minimum zones with enormous eyes optimized for detecting the faintest bioluminescent signals in complete darkness.',
+    salinity: {
+      min: 35,
+      max: 35,
+      typical: 35
+    }
+  },
+  {
+    id: 'barreleye-fish',
+    name: 'Barreleye Fish',
+    scientificName: 'Macropinna microstoma',
+    environment: 'deep-sea',
+    visionType: 'monochromatic',
+    coneTypes: {
+      mediumWave: 480, // Pure rod vision
+    },
+    specialFeatures: [
+      'Transparent head structure',
+      'Rotating tubular eyes',
+      'Green filtering lenses',
+      'Upward-facing vision'
+    ],
+    description: 'Remarkable deep-sea fish with tubular eyes that rotate upward to spot prey silhouettes against faint surface light filtering down.',
+    salinity: {
+      min: 35,
+      max: 35,
+      typical: 35
+    }
+  },
+  {
+    id: 'silver-spinyfin',
+    name: 'Silver Spinyfin',
+    scientificName: 'Diretmus argenteus',
+    environment: 'deep-sea',
+    visionType: 'trichromatic',
+    coneTypes: {
+      shortWave: 430,   // Modified rhodopsin
+      mediumWave: 480,  // Standard rhodopsin
+      longWave: 520,    // Long-wavelength rhodopsin
+    },
+    specialFeatures: [
+      'Multiple rhodopsin variants',
+      'Bioluminescence spectrum detection',
+      'Vertical migration adaptation',
+      'Enhanced blue-green sensitivity'
+    ],
+    description: 'Evolved multiple rhodopsin-based photoreceptors to detect different wavelengths of bioluminescent communication signals in the deep ocean.',
+    salinity: {
+      min: 35,
+      max: 35,
+      typical: 35
+    }
+  },
+  {
+    id: 'gulper-eel',
+    name: 'Gulper Eel',
+    scientificName: 'Eurypharynx pelecanoides',
+    environment: 'deep-sea',
+    visionType: 'monochromatic',
+    coneTypes: {
+      mediumWave: 470, // Vestigial rod system
+    },
+    specialFeatures: [
+      'Extremely reduced eyes',
+      'Primarily chemosensory hunting',
+      'Massive expandable mouth',
+      'Minimal light detection only'
+    ],
+    description: 'Abyssal predator with vestigial vision that relies almost entirely on chemical and mechanical senses to locate prey in complete darkness.',
+    salinity: {
+      min: 35,
+      max: 35,
+      typical: 35
+    }
+  },
+  {
+    id: 'migrating-lanternfish',
+    name: 'Spotted Lanternfish',
+    scientificName: 'Myctophum punctatum',
+    environment: 'deep-sea',
+    visionType: 'dichromatic',
+    coneTypes: {
+      mediumWave: 480,  // Rod system
+      longWave: 510,    // Single cone type
+    },
+    specialFeatures: [
+      'Diel vertical migration',
+      'Photophore patterns',
+      'Counter-illumination camouflage',
+      'Species-specific light signals'
+    ],
+    description: 'Performs massive daily migrations from deep water to surface, using bioluminescent photophores for communication and camouflage.',
+    salinity: {
+      min: 35,
+      max: 35,
+      typical: 35
+    }
+  },
+
+  // =======================
+  // TROPICAL REEF SPECIALISTS (4 species)
+  // =======================
+  {
+    id: 'foureye-butterflyfish',
+    name: 'Foureye Butterflyfish',
+    scientificName: 'Chaetodon capistratus',
+    environment: 'saltwater',
+    visionType: 'tetrachromatic',
+    coneTypes: {
+      shortWave: 360,   // UV cone
+      mediumWave: 420,  // Blue cone
+      longWave: 480,    // Green cone
+      ultraLongWave: 560 // Red cone
+    },
+    specialFeatures: [
+      'UV coral polyp detection',
+      'False eyespot patterns',
+      'Territorial behavior recognition',
+      'Monogamous pair bonding'
+    ],
+    description: 'Reef specialist with UV vision for detecting coral polyps and complex pattern recognition for social behaviors and predator deterrence.',
+    salinity: {
+      min: 35,
+      max: 35,
+      typical: 35
+    }
+  },
+  {
+    id: 'queen-angelfish',
+    name: 'Queen Angelfish',
+    scientificName: 'Holacanthus ciliaris',
+    environment: 'saltwater',
+    visionType: 'tetrachromatic',
+    coneTypes: {
+      shortWave: 370,   // UV cone
+      mediumWave: 430,  // Blue cone
+      longWave: 490,    // Green cone
+      ultraLongWave: 570 // Red cone
+    },
+    specialFeatures: [
+      'Excellent color discrimination',
+      'Territorial aggression displays',
+      'Sponge feeding specialization',
+      'Complex reef navigation'
+    ],
+    description: 'Large reef angelfish with sophisticated color vision adapted for complex territorial behaviors and specialized sponge feeding.',
+    salinity: {
+      min: 35,
+      max: 35,
+      typical: 35
+    }
+  },
+  {
+    id: 'bluehead-wrasse',
+    name: 'Bluehead Wrasse',
+    scientificName: 'Thalassoma bifasciatum',
+    environment: 'saltwater',
+    visionType: 'tetrachromatic',
+    coneTypes: {
+      shortWave: 365,   // UV cone
+      mediumWave: 425,  // Blue cone
+      longWave: 485,    // Green cone
+      ultraLongWave: 565 // Red cone
+    },
+    specialFeatures: [
+      'Sexual dimorphism detection',
+      'Cleaning station behavior',
+      'Sequential hermaphroditism',
+      'Color phase transitions'
+    ],
+    description: 'Highly social reef fish with advanced color vision supporting complex behaviors including sex change and cooperative cleaning.',
+    salinity: {
+      min: 35,
+      max: 35,
+      typical: 35
+    }
+  },
+  {
+    id: 'regal-tang',
+    name: 'Regal Tang',
+    scientificName: 'Paracanthurus hepatus',
+    environment: 'saltwater',
+    visionType: 'tetrachromatic',
+    coneTypes: {
+      shortWave: 375,   // UV cone
+      mediumWave: 440,  // Blue cone
+      longWave: 495,    // Green cone
+      ultraLongWave: 575 // Red cone
+    },
+    specialFeatures: [
+      'Schooling coordination',
+      'Polarization sensitivity',
+      'Predator detection enhancement',
+      'Algae browsing specialization'
+    ],
+    description: 'Popular aquarium species with tetrachromatic vision adapted for maintaining large school cohesion and detecting predators on coral reefs.',
+    salinity: {
+      min: 35,
+      max: 35,
+      typical: 35
+    }
+  },
+
+  // =======================
+  // PREDATORY FISH SPECIALISTS (3 species)
+  // =======================
+  {
+    id: 'great-barracuda',
+    name: 'Great Barracuda',
+    scientificName: 'Sphyraena barracuda',
+    environment: 'saltwater',
+    visionType: 'dichromatic',
+    coneTypes: {
+      mediumWave: 480,  // Blue-green cone
+      longWave: 540,    // Yellow-green cone
+    },
+    specialFeatures: [
+      'Motion detection optimization',
+      'High-speed pursuit predation',
+      'Long-distance target acquisition',
+      'Reduced chromatic complexity'
+    ],
+    description: 'Apex predator with simplified color vision optimized for detecting movement and contrast rather than color discrimination.',
+    salinity: {
+      min: 35,
+      max: 35,
+      typical: 35
+    }
+  },
+  {
+    id: 'bull-shark',
+    name: 'Bull Shark',
+    scientificName: 'Carcharhinus leucas',
+    environment: 'saltwater',
+    visionType: 'monochromatic',
+    coneTypes: {
+      mediumWave: 530,  // Single cone type
+    },
+    specialFeatures: [
+      'Excellent low-light vision',
+      'Enhanced motion sensitivity',
+      'Turbid water adaptation',
+      'Freshwater tolerance'
+    ],
+    description: 'Aggressive shark species that sacrificed color vision for enhanced contrast sensitivity, allowing effective hunting in murky water.',
+    salinity: {
+      min: 0,
+      max: 35,
+      typical: 25
+    }
+  },
+  {
+    id: 'mahi-mahi',
+    name: 'Mahi-mahi',
+    scientificName: 'Coryphaena hippurus',
+    environment: 'saltwater',
+    visionType: 'dichromatic',
+    coneTypes: {
+      mediumWave: 460,  // Blue cone
+      longWave: 520,    // Green-yellow cone
+    },
+    specialFeatures: [
+      'Pelagic hunting optimization',
+      'Fast motion tracking',
+      'Open ocean adaptation',
+      'High-speed pursuit'
+    ],
+    description: 'Fast-growing pelagic predator with dichromatic vision optimized for tracking fast-moving prey in the open ocean environment.',
+    salinity: {
+      min: 35,
+      max: 35,
+      typical: 35
+    }
+  },
+
+  // =======================
+  // FRESHWATER EXPANSION (4 species)
+  // =======================
+  {
+    id: 'european-perch',
+    name: 'European Perch',
+    scientificName: 'Perca fluviatilis',
+    environment: 'freshwater',
+    visionType: 'trichromatic',
+    coneTypes: {
+      shortWave: 450,   // Blue cone (juvenile UV cone lost)
+      mediumWave: 530,  // Green cone
+      longWave: 660,    // Red cone
+    },
+    specialFeatures: [
+      'Ontogenetic vision changes',
+      'UV sensitivity loss with age',
+      'Schooling behavior coordination',
+      'Predator-prey role transition'
+    ],
+    description: 'Loses UV sensitivity during maturation as feeding strategy shifts from plankton to larger prey, demonstrating vision adaptation to ecological role.',
+    salinity: {
+      min: 0,
+      max: 0,
+      typical: 0
+    }
+  },
+  {
+    id: 'common-carp',
+    name: 'Common Carp',
+    scientificName: 'Cyprinus carpio',
+    environment: 'freshwater',
+    visionType: 'tetrachromatic',
+    coneTypes: {
+      shortWave: 360,   // UV cone
+      mediumWave: 415,  // Blue cone
+      longWave: 530,    // Green cone
+      ultraLongWave: 605 // Red cone
+    },
+    specialFeatures: [
+      'UV plankton detection',
+      'Omnivorous feeding vision',
+      'Excellent color discrimination',
+      'Bottom feeding specialization'
+    ],
+    description: 'Maintains comprehensive tetrachromatic vision throughout life to support versatile omnivorous feeding strategy in varied freshwater habitats.',
+    salinity: {
+      min: 0,
+      max: 0,
+      typical: 0
+    }
+  },
+  {
+    id: 'channel-catfish',
+    name: 'Channel Catfish',
+    scientificName: 'Ictalurus punctatus',
+    environment: 'freshwater',
+    visionType: 'dichromatic',
+    coneTypes: {
+      mediumWave: 480,  // Blue-green cone
+      longWave: 560,    // Yellow-red cone
+    },
+    specialFeatures: [
+      'Reduced vision dependency',
+      'Enhanced chemosensory abilities',
+      'Bottom-dwelling adaptation',
+      'Barbel integration with vision'
+    ],
+    description: 'Nocturnal bottom-dweller with limited color vision that relies heavily on chemical and tactile senses for navigation and feeding.',
+    salinity: {
+      min: 0,
+      max: 0,
+      typical: 0
+    }
+  },
+  {
+    id: 'northern-pike-enhanced',
+    name: 'Northern Pike (Enhanced Model)',
+    scientificName: 'Esox lucius',
+    environment: 'freshwater',
+    visionType: 'trichromatic',
+    coneTypes: {
+      shortWave: 440,   // Blue cone
+      mediumWave: 533,  // Green cone
+      longWave: 625,    // Red cone
+    },
+    specialFeatures: [
+      'Enhanced motion detection',
+      'Ambush predator vision',
+      'Vegetation camouflage detection',
+      'Lateral line integration'
+    ],
+    description: 'Updated model showing full trichromatic vision in pike, with enhanced motion detection capabilities for ambush predation among vegetation.',
+    salinity: {
+      min: 0,
+      max: 0,
+      typical: 0
+    }
+  },
+
+  // =======================
+  // UNUSUAL VISION SYSTEMS (4 species)
+  // =======================
+  {
+    id: 'winter-flounder',
+    name: 'Winter Flounder',
+    scientificName: 'Pseudopleuronectes americanus',
+    environment: 'saltwater',
+    visionType: 'trichromatic',
+    coneTypes: {
+      shortWave: 450,   // Blue cone
+      mediumWave: 530,  // Green cone
+      longWave: 580,    // Red cone
+    },
+    specialFeatures: [
+      'Eye migration during development',
+      'Asymmetric body pigmentation',
+      'Benthic lifestyle adaptation',
+      'Bilateral visual symmetry'
+    ],
+    description: 'Remarkable flatfish that undergoes eye migration during metamorphosis while maintaining symmetric vision capabilities in both eyes.',
+    salinity: {
+      min: 30,
+      max: 35,
+      typical: 35
+    }
+  },
+  {
+    id: 'elephant-nose-fish',
+    name: 'Elephant-nose Fish',
+    scientificName: 'Gnathonemus petersii',
+    environment: 'freshwater',
+    visionType: 'dichromatic',
+    coneTypes: {
+      mediumWave: 480,  // Blue-green cone
+      longWave: 620,    // Red-enhanced cone
+    },
+    specialFeatures: [
+      'Reflective retinal cups',
+      'Rod-cone bundles',
+      'Electroreception integration',
+      'Nocturnal vision enhancement'
+    ],
+    description: 'Unique "grouped retina" with mirror-like reflective cups that enhance light gathering, combined with sophisticated electroreception.',
+    salinity: {
+      min: 0,
+      max: 0,
+      typical: 0
+    }
+  },
+  {
+    id: 'starry-flounder',
+    name: 'Starry Flounder',
+    scientificName: 'Platichthys stellatus',
+    environment: 'anadromous',
+    visionType: 'trichromatic',
+    coneTypes: {
+      shortWave: 420,   // UV-blue cone
+      mediumWave: 510,  // Green cone
+      longWave: 590,    // Red cone
+    },
+    specialFeatures: [
+      'Variable eye sidedness',
+      'Freshwater-saltwater adaptation',
+      'Modified spectral sensitivity',
+      'Estuarine specialization'
+    ],
+    description: 'Anadromous flatfish with vision adapted for both marine and freshwater phases, showing flexibility in eye arrangement.',
+    salinity: {
+      min: 0,
+      max: 35,
+      typical: 15
+    }
+  },
+  {
+    id: 'four-eyed-fish',
+    name: 'Four-eyed Fish',
+    scientificName: 'Anableps anableps',
+    environment: 'saltwater',
+    visionType: 'tetrachromatic',
+    coneTypes: {
+      shortWave: 365,   // UV cone
+      mediumWave: 435,  // Blue cone
+      longWave: 500,    // Green cone
+      ultraLongWave: 570 // Red cone
+    },
+    specialFeatures: [
+      'Split eyes for air/water vision',
+      'Dual optical adaptation',
+      'Surface-dwelling specialization',
+      'Simultaneous aerial/aquatic vision'
+    ],
+    description: 'Remarkable surface-dweller with eyes divided into aerial and aquatic segments, allowing simultaneous vision above and below water.',
+    salinity: {
+      min: 15,
+      max: 35,
+      typical: 25
+    }
   }
 ];
 
@@ -652,4 +1145,227 @@ export function getSpeciesStats() {
     hasLowLight: getSpeciesByCapability('low-light').length,
     hasBioluminescence: getSpeciesByCapability('bioluminescence').length,
   };
+}
+
+// =======================
+// PHASE 3 ENHANCED GROUPING AND FILTERING SYSTEM
+// =======================
+
+/**
+ * Advanced species filtering by multiple criteria
+ */
+export interface SpeciesFilter {
+  environment?: ('freshwater' | 'saltwater' | 'anadromous' | 'deep-sea')[];
+  visionType?: VisionType[];
+  capabilities?: string[];
+  depthRange?: { min: number; max: number };
+  salinity?: { min: number; max: number };
+  searchTerm?: string;
+}
+
+/**
+ * Filter species by multiple advanced criteria
+ */
+export function getFilteredSpecies(filter: SpeciesFilter): FishSpecies[] {
+  return FISH_SPECIES.filter(species => {
+    // Environment filter
+    if (filter.environment && !filter.environment.includes(species.environment)) {
+      return false;
+    }
+
+    // Vision type filter
+    if (filter.visionType && !filter.visionType.includes(species.visionType)) {
+      return false;
+    }
+
+    // Capabilities filter
+    if (filter.capabilities && filter.capabilities.length > 0) {
+      const hasAllCapabilities = filter.capabilities.every(capability =>
+        species.specialFeatures.some(feature =>
+          feature.toLowerCase().includes(capability.toLowerCase())
+        )
+      );
+      if (!hasAllCapabilities) return false;
+    }
+
+    // Salinity range filter
+    if (filter.salinity && species.salinity) {
+      const speciesSalinity = species.salinity.typical;
+      if (speciesSalinity < filter.salinity.min || speciesSalinity > filter.salinity.max) {
+        return false;
+      }
+    }
+
+    // Search term filter
+    if (filter.searchTerm) {
+      const searchLower = filter.searchTerm.toLowerCase();
+      const matchesSearch =
+        species.name.toLowerCase().includes(searchLower) ||
+        species.scientificName.toLowerCase().includes(searchLower) ||
+        species.description.toLowerCase().includes(searchLower) ||
+        species.specialFeatures.some(feature => feature.toLowerCase().includes(searchLower));
+
+      if (!matchesSearch) return false;
+    }
+
+    return true;
+  });
+}
+
+/**
+ * Get species grouped by ecological categories
+ */
+export function getSpeciesByEcology() {
+  return {
+    predators: FISH_SPECIES.filter(s =>
+      s.specialFeatures.some(f =>
+        f.includes('predator') || f.includes('Predator') ||
+        f.includes('hunting') || f.includes('pursuit')
+      )
+    ),
+    reefSpecialists: FISH_SPECIES.filter(s =>
+      s.environment === 'saltwater' &&
+      s.specialFeatures.some(f =>
+        f.includes('reef') || f.includes('coral') || f.includes('territory')
+      )
+    ),
+    deepSeaAdapted: getDeepSeaSpecies(),
+    schoolingFish: FISH_SPECIES.filter(s =>
+      s.specialFeatures.some(f =>
+        f.includes('school') || f.includes('School') || f.includes('coordination')
+      )
+    ),
+    bottomDwellers: FISH_SPECIES.filter(s =>
+      s.specialFeatures.some(f =>
+        f.includes('bottom') || f.includes('benthic') || f.includes('Bottom')
+      )
+    ),
+    migratory: getAnadromousSpecies().concat(
+      FISH_SPECIES.filter(s =>
+        s.specialFeatures.some(f => f.includes('migration') || f.includes('Migration'))
+      )
+    )
+  };
+}
+
+/**
+ * Get species grouped by vision complexity
+ */
+export function getSpeciesByVisionComplexity() {
+  return {
+    simpleVision: [
+      ...getSpeciesByVisionType('monochromatic'),
+      ...getSpeciesByVisionType('dichromatic')
+    ],
+    advancedVision: [
+      ...getSpeciesByVisionType('trichromatic'),
+      ...getSpeciesByVisionType('tetrachromatic'),
+      ...getSpeciesByVisionType('pentachromatic')
+    ],
+    uvCapable: getSpeciesByCapability('uv-vision'),
+    lowLightSpecialists: getSpeciesByCapability('low-light'),
+    bioluminescentSpecies: getSpeciesByCapability('bioluminescence')
+  };
+}
+
+/**
+ * Get species recommendations for specific fishing or research scenarios
+ */
+export function getSpeciesForScenario(scenario: 'game-fishing' | 'reef-aquarium' | 'research' | 'deep-sea' | 'freshwater-pond'): FishSpecies[] {
+  switch (scenario) {
+    case 'game-fishing':
+      return getGameFishSpecies();
+
+    case 'reef-aquarium':
+      return FISH_SPECIES.filter(s =>
+        s.environment === 'saltwater' &&
+        (s.visionType === 'tetrachromatic' || s.visionType === 'pentachromatic') &&
+        s.specialFeatures.some(f => f.includes('reef') || f.includes('coral'))
+      );
+
+    case 'research':
+      return FISH_SPECIES.filter(s =>
+        s.description.includes('research') ||
+        s.name.includes('Zebrafish') ||
+        s.name.includes('Goldfish') ||
+        s.visionType === 'tetrachromatic' ||
+        s.visionType === 'pentachromatic'
+      );
+
+    case 'deep-sea':
+      return getDeepSeaSpecies();
+
+    case 'freshwater-pond':
+      return getFreshwaterSpecies().filter(s =>
+        !s.specialFeatures.some(f => f.includes('large') || f.includes('predator'))
+      );
+
+    default:
+      return FISH_SPECIES;
+  }
+}
+
+/**
+ * Get similar species based on vision characteristics and environment
+ */
+export function getSimilarSpecies(targetSpeciesId: string, limit: number = 5): FishSpecies[] {
+  const targetSpecies = getSpeciesById(targetSpeciesId);
+  if (!targetSpecies) return [];
+
+  return FISH_SPECIES
+    .filter(s => s.id !== targetSpeciesId)
+    .map(species => ({
+      species,
+      similarity: calculateSpeciesSimilarity(targetSpecies, species)
+    }))
+    .sort((a, b) => b.similarity - a.similarity)
+    .slice(0, limit)
+    .map(item => item.species);
+}
+
+/**
+ * Calculate similarity score between two species
+ */
+function calculateSpeciesSimilarity(species1: FishSpecies, species2: FishSpecies): number {
+  let score = 0;
+
+  // Vision type similarity (40% weight)
+  if (species1.visionType === species2.visionType) {
+    score += 0.4;
+  } else {
+    // Partial credit for similar vision complexity
+    const visionComplexity = {
+      'monochromatic': 1,
+      'dichromatic': 2,
+      'trichromatic': 3,
+      'tetrachromatic': 4,
+      'pentachromatic': 5
+    };
+    const diff = Math.abs(visionComplexity[species1.visionType] - visionComplexity[species2.visionType]);
+    score += Math.max(0, 0.4 - (diff * 0.1));
+  }
+
+  // Environment similarity (30% weight)
+  if (species1.environment === species2.environment) {
+    score += 0.3;
+  } else if (
+    (species1.environment === 'anadromous' && (species2.environment === 'freshwater' || species2.environment === 'saltwater')) ||
+    (species2.environment === 'anadromous' && (species1.environment === 'freshwater' || species1.environment === 'saltwater'))
+  ) {
+    score += 0.15; // Partial credit for anadromous species
+  }
+
+  // Special features similarity (30% weight)
+  const commonFeatures = species1.specialFeatures.filter(feature1 =>
+    species2.specialFeatures.some(feature2 =>
+      feature1.toLowerCase().includes(feature2.toLowerCase()) ||
+      feature2.toLowerCase().includes(feature1.toLowerCase())
+    )
+  );
+  const maxFeatures = Math.max(species1.specialFeatures.length, species2.specialFeatures.length);
+  if (maxFeatures > 0) {
+    score += (commonFeatures.length / maxFeatures) * 0.3;
+  }
+
+  return score;
 }

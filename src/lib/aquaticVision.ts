@@ -117,9 +117,15 @@ export class LureVisionProcessor {
       );
       
       // Apply backscatter if enabled
-      const finalRgb = params.backscatter
+      let finalRgb = params.backscatter
         ? this.addBackscatter(speciesRgb, params.depth)
         : speciesRgb;
+
+      // Apply bioluminescence enhancement for deep-sea species
+      finalRgb = this.addBioluminescenceEnhancement(finalRgb, params);
+
+      // Apply specialized vision features (polarization, etc.)
+      finalRgb = this.addSpecializedVisionFeatures(finalRgb, params);
       
       // Convert back to sRGB and store
       const srgb = this.linearToSrgb(finalRgb);
@@ -139,6 +145,7 @@ export class LureVisionProcessor {
    * Step 1: Apply underwater attenuation using Beer-Lambert law with salinity adjustment
    * I_c*(z) = I_c * exp(-k_c * 2z)
    * The 2z factor accounts for double-pass (down + reflection back up)
+   * Includes UV attenuation for enhanced tetrachromatic/pentachromatic species
    * Salinity affects attenuation coefficients based on dissolved ions
    */
   private applyUnderwaterAttenuation(
@@ -279,16 +286,99 @@ export class LureVisionProcessor {
   private addBioluminescentEffects(rgb: number[], depthFeet: number): number[] {
     // Deep-sea is essentially black except for bioluminescence
     const ambientFactor = Math.max(0.01, Math.exp(-(depthFeet - 100) / 200)); // Exponential decay
-    
+
     // Bioluminescent organisms emit primarily blue-green light (480-490nm)
     const bioLumBlue = 0.02 * Math.random(); // Sparse, random bioluminescent spots
     const bioLumGreen = 0.015 * Math.random();
-    
+
     return [
       rgb[0] * ambientFactor, // Red is completely absorbed at depth
       rgb[1] * ambientFactor + bioLumGreen, // Green with bioluminescence
       rgb[2] * ambientFactor + bioLumBlue,  // Blue with bioluminescence
     ];
+  }
+
+  /**
+   * Enhanced bioluminescence processing for species with bioluminescence features
+   * Automatically applies to deep-sea species and those with bioluminescence adaptations
+   */
+  private addBioluminescenceEnhancement(rgb: number[], params: SimulationParams): number[] {
+    const species = getSpeciesById(params.speciesId);
+
+    // Apply bioluminescence enhancement for deep-sea species or those with bio features
+    const hasBioluminescence = species?.environment === 'deep-sea' ||
+      species?.specialFeatures.some(feature =>
+        feature.toLowerCase().includes('biolumines') ||
+        feature.toLowerCase().includes('photophore')
+      );
+
+    if (hasBioluminescence && params.depth > 50) {
+      return this.addBioluminescentEffects(rgb, params.depth);
+    }
+
+    return rgb;
+  }
+
+  /**
+   * Apply specialized vision features like polarization detection
+   * Enhances contrast and reduces glare for species with these capabilities
+   */
+  private addSpecializedVisionFeatures(rgb: number[], params: SimulationParams): number[] {
+    const species = getSpeciesById(params.speciesId);
+    if (!species) return rgb;
+
+    let enhancedRgb = [...rgb];
+
+    // Polarization detection enhancement
+    const hasPolarizationDetection = species.specialFeatures.some(feature =>
+      feature.toLowerCase().includes('polariz') ||
+      feature.toLowerCase().includes('polarized')
+    );
+
+    if (hasPolarizationDetection) {
+      // Polarization detection reduces glare and enhances contrast
+      // Simulated by slight contrast enhancement and glare reduction
+      const contrastFactor = 1.15;
+      const glareReduction = 0.95;
+
+      enhancedRgb = enhancedRgb.map(channel => {
+        // Enhance contrast while reducing extreme brightness (glare)
+        const enhanced = channel * contrastFactor;
+        return enhanced > 0.8 ? enhanced * glareReduction : enhanced;
+      });
+    }
+
+    // Enhanced motion detection (affects visual processing but not color directly)
+    const hasMotionDetection = species.specialFeatures.some(feature =>
+      feature.toLowerCase().includes('motion') ||
+      feature.toLowerCase().includes('movement')
+    );
+
+    if (hasMotionDetection) {
+      // Slight edge enhancement simulation
+      // In real implementation, this would affect edge detection algorithms
+      const edgeEnhancement = 1.05;
+      enhancedRgb = enhancedRgb.map(channel =>
+        Math.min(1.0, channel * edgeEnhancement)
+      );
+    }
+
+    // Enhanced light sensitivity for species with tapetum lucidum
+    const hasLightEnhancement = species.specialFeatures.some(feature =>
+      feature.toLowerCase().includes('tapetum') ||
+      feature.toLowerCase().includes('light gathering') ||
+      feature.toLowerCase().includes('enhanced light')
+    );
+
+    if (hasLightEnhancement && params.lightCondition.rodBlend > 0.3) {
+      // Amplify available light in low-light conditions
+      const amplificationFactor = 1.3;
+      enhancedRgb = enhancedRgb.map(channel =>
+        Math.min(1.0, channel * amplificationFactor)
+      );
+    }
+
+    return enhancedRgb;
   }
 
   /**
