@@ -46,7 +46,7 @@ export class ImageExporter {
       lightCondition: { name: string; label: string };
       backscatter: boolean;
     },
-    filename: string = 'aquatic-vision-comparison.png'
+    filename: string = 'lure-vision-comparison.png'
   ): void {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
@@ -73,7 +73,7 @@ export class ImageExporter {
     ctx.font = 'bold 28px Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(
-      'Game Fish Vision Comparison', 
+      'LureVision Comparison', 
       canvas.width / 2, 
       40
     );
@@ -92,7 +92,7 @@ export class ImageExporter {
     
     ctx.textAlign = 'center';
     ctx.fillText('Original', padding + (imageWidth / 2), labelY);
-    ctx.fillText('Game Fish Vision', padding * 2 + imageWidth + (imageWidth / 2), labelY);
+    ctx.fillText('LureVision', padding * 2 + imageWidth + (imageWidth / 2), labelY);
 
     // Draw images
     const imageY = headerHeight + labelHeight + padding;

@@ -52,7 +52,7 @@ export default function Home() {
     setCurrentImage(imageData);
     setResult(null); // Clear previous result
     
-    // Automatically run game fish vision simulation
+    // Automatically run LureVision simulation
     if (processor) {
       setIsProcessing(true);
       try {
@@ -66,7 +66,7 @@ export default function Home() {
           processingTime
         });
       } catch (error) {
-        console.error('Game fish vision processing failed:', error);
+        console.error('LureVision processing failed:', error);
       } finally {
         setIsProcessing(false);
       }
@@ -117,101 +117,60 @@ export default function Home() {
   }, [result, params]);
 
   return (
-    <div className="min-h-screen bg-gray-900">
-      {/* Hero Section with Lake Background */}
-      <div 
-        className="relative h-screen bg-cover bg-center bg-no-repeat"
-        style={{ 
-          backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url("/lake-background.jpg")',
-        }}
-      >
-        {/* Header Navigation */}
-        <header className="absolute top-0 left-0 right-0 z-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <img 
-                  src="/logo.png" 
-                  alt="Thumpin Jigs Logo" 
-                  className="h-12 w-auto"
-                />
-              </div>
-              <nav className="hidden md:flex space-x-8">
-                <a href="#gamefishvision" className="text-white hover:text-red-400 transition-colors font-medium">
-                  GAME FISH VISION
-                </a>
-                <a href="#how-it-works" className="text-white hover:text-red-400 transition-colors font-medium">
-                  HOW IT WORKS
-                </a>
-                <a href="#science" className="text-white hover:text-red-400 transition-colors font-medium">
-                  SCIENCE
-                </a>
-              </nav>
-            </div>
-          </div>
-        </header>
-
-        {/* Hero Content */}
-        <div className="flex items-center justify-center h-full">
-          <div className="text-center text-white max-w-4xl mx-auto px-4">
-            <h1 className="text-6xl font-bold mb-4" style={{ color: '#C41E3A' }}>
-              GAME FISH VISION
-            </h1>
-            <h2 className="text-4xl font-bold mb-6" style={{ color: '#FFFFFF' }}>
-              SIMULATOR
-            </h2>
-            <p className="text-xl mb-2 font-medium">
-              Scientifically Proven Multi-Species Vision Analysis
-            </p>
-            <p className="text-lg mb-8 opacity-90">
-              See the underwater world through any game fish&apos;s eyes using tournament-proven technology
-            </p>
-            <div className="inline-flex items-center justify-center px-8 py-3 border-2 border-red-600 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition-colors cursor-pointer" 
-                 onClick={() => document.getElementById('gamefishvision')?.scrollIntoView({ behavior: 'smooth' })}>
-              START SIMULATION
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-          <div className="animate-bounce">
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <main id="gamefishvision" className="bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50">
+      {/* Modern Header */}
+      <header className="sticky top-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section Header */}
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold mb-2" style={{ color: '#1B365D' }}>
-              Jig Vision Simulator
-            </h2>
-            <p className="text-sm text-gray-600 max-w-2xl mx-auto">
-              Upload jig photos or select presets. See how bass perceive your jigs at different depths and water conditions.
-            </p>
-          </div>
-
-          {/* Streamlined Single Column Layout */}
-          <div className="max-w-5xl mx-auto">
-            
-            
-            {/* Image Viewer */}
-            <div className="mb-4">
-              <ImageViewer
-                originalImage={result?.originalImage || null}
-                lureVisionImage={result?.lureVisionImage || null}
-                onExport={handleExport}
-                onImageUpload={handleImageSelect}
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center space-x-3">
+              <img
+                src="/logo.png"
+                alt="LureVision Logo"
+                className="h-10 w-auto"
               />
+              <h1 className="text-xl font-bold" style={{ color: '#1B365D' }}>
+                LureVision
+              </h1>
             </div>
-            
-            {/* Controls Section - Under the viewer */}
-            <div className="bg-white rounded-lg shadow-md p-4">
+            <nav className="hidden md:flex items-center space-x-8">
+              <a href="#simulator" className="text-sm font-medium text-gray-700 hover:text-red-600 transition-colors">
+                Simulator
+              </a>
+              <a href="#settings" className="text-sm font-medium text-gray-700 hover:text-red-600 transition-colors">
+                Settings
+              </a>
+              <a href="#about" className="text-sm font-medium text-gray-700 hover:text-red-600 transition-colors">
+                About
+              </a>
+              <button
+                className="flex items-center gap-2 px-4 py-2 text-sm font-bold text-white rounded-lg transition-colors"
+                style={{ backgroundColor: '#C41E3A' }}
+                onClick={() => (document.querySelector('input[type="file"]') as HTMLInputElement)?.click()}
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                Upload Lure
+              </button>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content - Compact Two-Column Layout */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          {/* Left Sidebar - Control Panel */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-24">
+              <div className="flex items-center gap-2 mb-6">
+                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#C41E3A' }}></div>
+                <h2 className="text-lg font-bold" style={{ color: '#1B365D' }}>
+                  Simulation Parameters
+                </h2>
+              </div>
+
               <ControlPanel
                 params={params}
                 onParamsChange={setParams}
@@ -220,85 +179,51 @@ export default function Home() {
                 onImageUpload={handleImageSelect}
                 hasImage={currentImage !== null}
               />
-              
+
               {result && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-2 mt-3" style={{ borderColor: '#C41E3A' }}>
+                <div className="mt-6 p-3 rounded-lg border border-red-200 bg-red-50">
                   <div className="flex items-center justify-between">
-                    <h4 className="text-xs font-medium" style={{ color: '#C41E3A' }}>
+                    <h4 className="text-sm font-medium" style={{ color: '#C41E3A' }}>
                       Analysis Complete
                     </h4>
                     <div className="text-xs text-gray-600">
-                      {result.processingTime.toFixed(1)}ms • {result.originalImage.width}×{result.originalImage.height}px
+                      {result.processingTime.toFixed(1)}ms
                     </div>
+                  </div>
+                  <div className="text-xs text-gray-500 mt-1">
+                    {result.originalImage.width}×{result.originalImage.height}px
                   </div>
                 </div>
               )}
             </div>
           </div>
+
+          {/* Right Main Area - Image Viewer */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#7EBDE4' }}></div>
+                  <h2 className="text-lg font-bold" style={{ color: '#1B365D' }}>
+                    Vision Comparison
+                  </h2>
+                </div>
+                <div className="text-sm text-gray-500">
+                  Upload an image to begin analysis
+                </div>
+              </div>
+
+              <ImageViewer
+                originalImage={result?.originalImage || null}
+                lureVisionImage={result?.lureVisionImage || null}
+                onExport={handleExport}
+                onImageUpload={handleImageSelect}
+              />
+            </div>
+          </div>
         </div>
       </main>
 
-      {/* How It Works Section */}
-      <section id="how-it-works" className="py-16" style={{ backgroundColor: '#1B365D' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              How It Works
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Tournament-proven technology based on scientific bass vision research
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-red-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">1</span>
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Underwater Attenuation</h3>
-              <p className="text-gray-300">
-                Models how water absorbs different wavelengths using the Beer-Lambert law.
-                Red light dies first, blue penetrates deepest - just like in real lakes.
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="bg-red-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">2</span>
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Bass Vision Analysis</h3>
-              <p className="text-gray-300">
-                Converts colors to bass cone responses (LWS ~614nm, RH2 ~535nm) plus rod vision.
-                Bass see the world differently - they&apos;re red-green colorblind.
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="bg-red-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">3</span>
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Tournament Results</h3>
-              <p className="text-gray-300">
-                Blends cone and rod signals based on lighting conditions to show you 
-                exactly what bass see when they strike your jigs.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Science Section */}
-      <section id="science" className="py-16 bg-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold mb-6" style={{ color: '#1B365D' }}>
-              IT AIN&apos;T LUCK • IT&apos;S THUMPIN
-            </h2>
-            <p className="text-gray-600 max-w-4xl mx-auto">
-              Based on research by Mitchem et al. and underwater optics principles. 
-              This scientific simulation helps you choose the right jig colors for any lake condition, 
-              giving you the edge that separates tournament winners from weekend warriors.
-            </p>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

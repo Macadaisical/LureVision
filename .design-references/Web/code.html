@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BassVision - Bass Vision Simulator</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+    :root {
+      --primary-color: #1193d4;
+      --secondary-color: #283339;
+      --background-color: #111618;
+      --text-color: #ffffff;
+      --muted-text-color: #9db0b9;
+      --border-color: #3b4b54;
+      --input-background: #1c2327;
+    }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-[var(--background-color)] text-[var(--text-color)]">
+<div class="flex flex-col min-h-screen">
+<header class="sticky top-0 bg-[var(--background-color)]/80 backdrop-blur-sm z-10">
+<div class="container mx-auto px-4">
+<div class="flex items-center justify-between h-20 border-b border-[var(--border-color)]">
+<div class="flex items-center gap-3">
+<svg class="h-8 w-8 text-[var(--primary-color)]" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+<h1 class="text-2xl font-bold">BassVision</h1>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-[var(--primary-color)] transition-colors" href="#">Home</a>
+<a class="text-sm font-medium hover:text-[var(--primary-color)] transition-colors" href="#">About</a>
+<a class="text-sm font-medium hover:text-[var(--primary-color)] transition-colors" href="#">Contact</a>
+<button class="flex items-center justify-center gap-2 rounded-md h-10 px-4 bg-[var(--primary-color)] text-white text-sm font-bold hover:bg-opacity-90 transition-opacity">
+<span class="material-symbols-outlined">upload_file</span>
+<span>Upload Lure</span>
+</button>
+</nav>
+</div>
+</div>
+</header>
+<main class="flex-1 container mx-auto px-4 py-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+<div class="flex flex-col gap-8">
+<div class="text-center lg:text-left">
+<h2 class="text-4xl font-bold tracking-tight">Simulate Bass Vision</h2>
+<p class="text-[var(--muted-text-color)] mt-2">Transform your lure image to see how bass perceive it underwater.</p>
+</div>
+<div class="bg-[var(--secondary-color)]/30 rounded-lg p-6">
+<h3 class="text-2xl font-bold mb-6">Parameters</h3>
+<div class="space-y-6">
+<div>
+<label class="block text-base font-medium mb-2" for="depth">Depth (0-30 ft)</label>
+<div class="flex items-center gap-4">
+<input class="w-full h-2 bg-[var(--border-color)] rounded-lg appearance-none cursor-pointer accent-[var(--primary-color)]" id="depth" max="30" min="0" step="0.1" type="range" value="15"/>
+<span class="font-mono text-lg w-16 text-center bg-[var(--input-background)] py-1 rounded-md">15.0 ft</span>
+</div>
+</div>
+<div>
+<label class="block text-base font-medium mb-2" for="clarity">Water Clarity</label>
+<div class="relative">
+<select class="form-select w-full appearance-none rounded-md text-white bg-[var(--input-background)] border border-[var(--border-color)] focus:border-[var(--primary-color)] focus:ring focus:ring-[var(--primary-color)] focus:ring-opacity-50 h-12 px-4" id="clarity">
+<option>Clear</option>
+<option>Murky</option>
+<option>Muddy</option>
+</select>
+<span class="material-symbols-outlined absolute top-1/2 right-3 -translate-y-1/2 text-[var(--muted-text-color)] pointer-events-none">expand_more</span>
+</div>
+</div>
+<div>
+<p class="text-base font-medium mb-2">Light Conditions</p>
+<div class="grid grid-cols-3 gap-2">
+<button class="flex flex-col items-center justify-center gap-2 p-3 rounded-md bg-[var(--primary-color)] border border-transparent">
+<span class="material-symbols-outlined">wb_sunny</span>
+<span class="text-sm">Bright Sun</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-3 rounded-md bg-[var(--input-background)] hover:bg-[var(--secondary-color)] border border-[var(--border-color)] transition-colors">
+<span class="material-symbols-outlined">cloud</span>
+<span class="text-sm">Overcast</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-3 rounded-md bg-[var(--input-background)] hover:bg-[var(--secondary-color)] border border-[var(--border-color)] transition-colors">
+<span class="material-symbols-outlined">nights_stay</span>
+<span class="text-sm">Low Light</span>
+</button>
+</div>
+</div>
+<div>
+<p class="text-base font-medium mb-2">Processing</p>
+<div class="flex rounded-md bg-[var(--input-background)] p-1">
+<button class="flex-1 p-2 rounded text-sm font-medium bg-[var(--secondary-color)] shadow">CPU</button>
+<button class="flex-1 p-2 rounded text-sm font-medium text-[var(--muted-text-color)] hover:bg-[var(--secondary-color)]/50">GPU</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<button class="w-full flex items-center justify-center gap-2 rounded-md h-12 px-6 bg-[var(--primary-color)] text-white text-base font-bold hover:bg-opacity-90 transition-opacity">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span>Process Image</span>
+</button>
+<div class="flex items-center justify-center gap-2 text-sm text-[var(--muted-text-color)]">
+<div class="w-4 h-4 border-2 border-dashed rounded-full border-[var(--primary-color)] animate-spin"></div>
+<span>Processing Time: 0.12s</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-8">
+<div class="aspect-video w-full flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-[var(--border-color)] p-8 text-center bg-[var(--secondary-color)]/30">
+<span class="material-symbols-outlined text-6xl text-[var(--muted-text-color)]">image</span>
+<h3 class="text-xl font-bold mt-4">Upload Lure Image</h3>
+<p class="text-[var(--muted-text-color)] mt-1">Drag and drop, or click to select a file.</p>
+<p class="text-xs text-[var(--muted-text-color)] mt-2">Supported formats: JPG, PNG</p>
+<button class="mt-6 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-10 px-4 bg-[var(--secondary-color)] text-white text-sm font-bold hover:bg-opacity-80 transition-colors">
+<span>Choose File</span>
+</button>
+</div>
+<div class="bg-[var(--secondary-color)]/30 rounded-lg p-6">
+<h3 class="text-2xl font-bold mb-4">Comparison View</h3>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<h4 class="text-center font-medium mb-2">Before</h4>
+<div class="aspect-square bg-[var(--input-background)] rounded-md flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-[var(--muted-text-color)]">photo_camera</span>
+</div>
+</div>
+<div>
+<h4 class="text-center font-medium mb-2">After (Bass Vision)</h4>
+<div class="aspect-square bg-[var(--input-background)] rounded-md flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-[var(--primary-color)]">visibility</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-[var(--secondary-color)]/30 rounded-lg p-6">
+<h3 class="text-2xl font-bold mb-4">Export &amp; Save</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<button class="w-full flex items-center justify-center gap-2 rounded-md h-12 px-6 bg-[var(--primary-color)] text-white text-base font-bold hover:bg-opacity-90 transition-opacity">
+<span class="material-symbols-outlined">download</span>
+<span>Export Image</span>
+</button>
+<div class="relative">
+<select class="form-select w-28 appearance-none rounded-md text-white bg-[var(--input-background)] border border-[var(--border-color)] focus:border-[var(--primary-color)] focus:ring focus:ring-[var(--primary-color)] focus:ring-opacity-50 h-12 px-4">
+<option>PNG</option>
+<option>JPEG</option>
+</select>
+<span class="material-symbols-outlined absolute top-1/2 right-3 -translate-y-1/2 text-[var(--muted-text-color)] pointer-events-none">expand_more</span>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-2 rounded-md h-12 px-6 bg-[var(--secondary-color)] text-white text-base font-bold hover:bg-opacity-80 transition-colors border border-[var(--border-color)]">
+<span class="material-symbols-outlined">bookmark_add</span>
+<span>Save as Preset</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
